@@ -36,17 +36,17 @@ public class Task {
     public Task() {
     }
 
-    public Task(long id, User user, String description) {
+    public Task(Long id, User user, String description) {
         this.id = id;
         this.user = user;
         this.description = description;
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,7 +66,7 @@ public class Task {
         this.description = description;
     }
 
-    public Task id(long id) {
+    public Task id(Long id) {
         setId(id);
         return this;
     }
