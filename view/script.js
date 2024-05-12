@@ -30,9 +30,8 @@ async function getAPI(url) {
 
   var data = await response.json();
   console.log(data);
-  if(response)
-    hideLoader()
-  show(data)
+  if (response) hideLoader();
+  show(data);
 }
 
-getAPI(url)
+getAPI(url);
