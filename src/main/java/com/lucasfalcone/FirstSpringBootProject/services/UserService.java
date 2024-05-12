@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lucasfalcone.FirstSpringBootProject.models.User;
 import com.lucasfalcone.FirstSpringBootProject.repositories.UserRepository;
+import com.lucasfalcone.FirstSpringBootProject.services.exceptions.DataBindingViolationException;
+import com.lucasfalcone.FirstSpringBootProject.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserService {
@@ -17,7 +19,7 @@ public class UserService {
 
     public User findById(Long id) {
         Optional<User> user = this.userRepository.findById(id);
-        return user.orElseThrow(() -> new RuntimeException(
+        return user.orElseThrow(() -> new ObjectNotFoundException(
                 "User couldn´t found! Id: " + id + ", type: " + User.class.getName()));
     }
 
@@ -40,7 +42,7 @@ public class UserService {
         try {
             this.userRepository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException("Couldn´t be deleted because it has related entities.");
+            throw new DataBindingViolationException("Couldn´t be deleted because it has related entities.");
         }
     }
 

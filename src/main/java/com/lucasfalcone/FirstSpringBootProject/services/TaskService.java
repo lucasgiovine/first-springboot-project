@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lucasfalcone.FirstSpringBootProject.models.Task;
 import com.lucasfalcone.FirstSpringBootProject.models.User;
 import com.lucasfalcone.FirstSpringBootProject.repositories.TaskRepository;
+import com.lucasfalcone.FirstSpringBootProject.services.exceptions.DataBindingViolationException;
+import com.lucasfalcone.FirstSpringBootProject.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TaskService {
@@ -22,7 +24,7 @@ public class TaskService {
 
     public Task findById(Long id) {
         Optional<Task> task = this.taskRepository.findById(id);
-        return task.orElseThrow(() -> new RuntimeException(
+        return task.orElseThrow(() -> new ObjectNotFoundException(
                 "Task couldn't be found! Id: " + id + ", type: " + Task.class.getName()));
     }
 
@@ -52,7 +54,7 @@ public class TaskService {
         try {
             this.taskRepository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException("Couldn´t be deleted because it has related entities.");
+            throw new DataBindingViolationException("Couldn´t be deleted because it has related entities.");
         }
     }
 }
