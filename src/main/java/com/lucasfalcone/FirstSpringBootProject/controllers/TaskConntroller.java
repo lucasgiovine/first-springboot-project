@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasfalcone.FirstSpringBootProject.models.Task;
 import com.lucasfalcone.FirstSpringBootProject.services.TaskService;
+import com.lucasfalcone.FirstSpringBootProject.services.UserService;
 
 @RestController
 @RequestMapping("/task")
@@ -29,6 +30,9 @@ public class TaskConntroller {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/{id}")
     public ResponseEntity<Task> findById(@PathVariable Long id){
         Task obj = this.taskService.findById(id);
@@ -37,6 +41,7 @@ public class TaskConntroller {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Task>> findAllByUserId(@PathVariable Long userId){
+        userService.findById(userId);
         List<Task> objs = this.taskService.findAllByUserId(userId);
         return ResponseEntity.ok().body(objs);
     }
